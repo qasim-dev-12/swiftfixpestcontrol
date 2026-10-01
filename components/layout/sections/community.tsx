@@ -2,15 +2,9 @@
 
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Bug, MessageCircle, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export const CommunitySection = () => {
@@ -18,33 +12,43 @@ export const CommunitySection = () => {
     <section id="community" className="py-12 ">
       <hr className="border-secondary" />
       <div className="container py-20 sm:py-20">
-        <Reveal>
-          <div className="lg:w-[60%] mx-auto">
-            <Card className="bg-background border-none shadow-none text-center flex flex-col items-center justify-center">
-              <CardHeader>
-                <CardTitle className="text-4xl md:text-5xl font-bold flex flex-col items-center">
-                  <motion.div
-                    animate={{ scale: [1, 1.08, 1] }}
-                    transition={{ duration: 2.5, repeat: Infinity }}
-                    className="bg-primary/15 p-4 rounded-full mb-4"
-                  >
-                    <Bug className="size-10 text-primary" />
-                  </motion.div>
-                  <div>
-                    Got Pests? Get a
-                    <span className="text-transparent pl-2 bg-gradient-to-r from-lime-400 to-primary bg-clip-text">
-                      Free Inspection
-                    </span>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="lg:w-[80%] text-xl text-muted-foreground">
+        <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
+          <Reveal className="w-full justify-self-stretch">
+            <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-secondary">
+              <Image
+                src="/images/pest-control-inspection.jpg"
+                alt="SwiftFix technicians inspecting a kitchen during a free pest inspection"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div>
+              <motion.div
+                animate={{ scale: [1, 1.08, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+                className="bg-primary/15 p-4 rounded-full w-fit mb-4"
+              >
+                <Bug className="size-10 text-primary" />
+              </motion.div>
+
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                Got Pests? Get a
+                <span className="text-transparent pl-2 bg-gradient-to-r from-lime-400 to-primary bg-clip-text">
+                  Free Inspection
+                </span>
+              </h2>
+
+              <p className="text-xl text-muted-foreground mb-8">
                 Book a free, no-obligation inspection and get a same-day
                 quote. Our licensed technicians will identify the problem and
                 recommend the right treatment for your home or business.
-              </CardContent>
+              </p>
 
-              <CardFooter className="gap-4">
+              <div className="flex gap-4">
                 <Button asChild size="lg" className="font-bold">
                   <Link
                     href="https://wa.me/971569835921"
@@ -61,10 +65,10 @@ export const CommunitySection = () => {
                     Call Now
                   </Link>
                 </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </Reveal>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
       <hr className="border-secondary" />
     </section>

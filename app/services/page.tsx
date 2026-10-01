@@ -1,7 +1,7 @@
 import { FooterSection } from "@/components/layout/sections/footer";
-import { Reveal } from "@/components/motion/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import {
   ArrowLeft,
   BedDouble,
@@ -198,76 +198,82 @@ export default function ServicesPage() {
           </p>
         </Reveal>
 
-        <div className="flex flex-col gap-8 mt-12">
+        <RevealGroup className="flex flex-col gap-6 mt-12">
           {services.map(({ id, icon: Icon, title, summary, signs, approach }) => (
-            <Reveal key={id}>
-              <Card id={id} className="bg-muted/60 dark:bg-card scroll-mt-28">
-                <CardHeader>
-                  <div className="bg-primary/15 p-2 rounded-full w-fit mb-4">
-                    <Icon className="size-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl">{title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg mb-6">
-                    {summary}
-                  </p>
+            <RevealItem key={id}>
+              <Card
+                id={id}
+                className="bg-muted/60 dark:bg-card scroll-mt-28 overflow-hidden"
+              >
+                <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-6 md:gap-10 p-6 md:p-10 items-start">
+                  <div className="flex flex-col gap-4">
+                    <div className="bg-primary/15 p-2 rounded-full w-fit">
+                      <Icon className="size-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-2xl">{title}</CardTitle>
+                    <p className="text-muted-foreground">{summary}</p>
 
-                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="flex gap-3 mt-2">
+                      <Button asChild size="sm" className="font-bold">
+                        <Link
+                          href="https://wa.me/971569835921"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <MessageCircle className="size-4 mr-2" />
+                          WhatsApp
+                        </Link>
+                      </Button>
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="secondary"
+                        className="font-bold"
+                      >
+                        <Link href="tel:+971569835921">
+                          <Phone className="size-4 mr-2" />
+                          Call
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+
+                  <RevealGroup className="grid sm:grid-cols-2 gap-6 md:gap-8">
                     <div>
                       <h3 className="font-semibold mb-3">
                         Signs to watch for
                       </h3>
-                      <ul className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-2">
                         {signs.map((sign) => (
-                          <li key={sign} className="flex items-start gap-2">
+                          <RevealItem key={sign} className="flex items-start gap-2">
                             <Check className="size-4 text-primary shrink-0 mt-1" />
-                            <span className="text-muted-foreground">
+                            <span className="text-muted-foreground text-sm">
                               {sign}
                             </span>
-                          </li>
+                          </RevealItem>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
                     <div>
                       <h3 className="font-semibold mb-3">Our approach</h3>
-                      <ul className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-2">
                         {approach.map((step) => (
-                          <li key={step} className="flex items-start gap-2">
+                          <RevealItem key={step} className="flex items-start gap-2">
                             <Check className="size-4 text-primary shrink-0 mt-1" />
-                            <span className="text-muted-foreground">
+                            <span className="text-muted-foreground text-sm">
                               {step}
                             </span>
-                          </li>
+                          </RevealItem>
                         ))}
-                      </ul>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex gap-4 mt-8">
-                    <Button asChild className="font-bold">
-                      <Link
-                        href="https://wa.me/971569835921"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageCircle className="size-4 mr-2" />
-                        WhatsApp
-                      </Link>
-                    </Button>
-                    <Button asChild variant="secondary" className="font-bold">
-                      <Link href="tel:+971569835921">
-                        <Phone className="size-4 mr-2" />
-                        Call
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
+                  </RevealGroup>
+                </div>
               </Card>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </section>
 
       <FooterSection />

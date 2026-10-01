@@ -3,6 +3,7 @@
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, ShieldCheck, Star, Truck } from "lucide-react";
+import Image from "next/image";
 
 interface BenefitsProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -40,6 +41,18 @@ const benefitList: BenefitsProps[] = [
 export const BenefitsSection = () => {
   return (
     <section id="benefits" className="container py-24 sm:py-32">
+      <Reveal>
+        <div className="relative aspect-[21/9] w-full rounded-2xl overflow-hidden border border-secondary mb-16">
+          <Image
+            src="/images/pest-control-team.jpg"
+            alt="SwiftFix technician team treating a home together"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </Reveal>
+
       <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
         <Reveal>
           <div>

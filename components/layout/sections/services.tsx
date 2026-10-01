@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ArrowRight, BugOff, Rat, TreeDeciduous, Webhook } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ServiceProps {
@@ -54,19 +55,36 @@ const serviceList: ServiceProps[] = [
 export const ServicesSection = () => {
   return (
     <section id="services" className="container py-24 sm:py-32">
-      <Reveal>
-        <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          Services
-        </h2>
+      <div className="grid lg:grid-cols-2 place-items-center lg:gap-24 mb-12">
+        <Reveal>
+          <div>
+            <h2 className="text-lg text-primary mb-2 tracking-wider">
+              Services
+            </h2>
 
-        <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-          Common Pest Control
-        </h2>
-        <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-          Six specialist services, one licensed team — here are four of the
-          problems we&apos;re called out for most often across the UAE.
-        </h3>
-      </Reveal>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Common Pest Control
+            </h2>
+            <h3 className="text-xl text-muted-foreground">
+              Six specialist services, one licensed team — here are four of
+              the problems we&apos;re called out for most often across the
+              UAE.
+            </h3>
+          </div>
+        </Reveal>
+
+        <Reveal className="w-full justify-self-stretch">
+          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-secondary">
+            <Image
+              src="/images/pest-control-treatment.jpg"
+              alt="SwiftFix technician applying a targeted pest control treatment"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </Reveal>
+      </div>
 
       <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {serviceList.map(({ icon: Icon, title, description, href }) => (
