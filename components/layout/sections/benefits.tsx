@@ -1,37 +1,39 @@
+"use client";
+
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
-import { icons } from "lucide-react";
+import { Award, ShieldCheck, Star, Truck } from "lucide-react";
 
 interface BenefitsProps {
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
 }
 
 const benefitList: BenefitsProps[] = [
   {
-    icon: "Blocks",
-    title: "Build Brand Trust",
+    icon: Star,
+    title: "Top Rated Services",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Rated by residents and businesses across the UAE for fast, effective treatments.",
   },
   {
-    icon: "LineChart",
-    title: "More Leads",
+    icon: Truck,
+    title: "Fully Equipped",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, natus consectetur.",
+      "Every van carries the sprayers, bait and monitoring gear a job needs in one visit.",
   },
   {
-    icon: "Wallet",
-    title: "Higher Conversions",
+    icon: ShieldCheck,
+    title: "Licensed & Insured",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consectetur. A odio velit cum aliquam",
+      "Fully licensed by Dubai Municipality with certified technicians and comprehensive insurance on every job we do.",
   },
   {
-    icon: "Sparkle",
-    title: "Test Marketing Ideas",
+    icon: Award,
+    title: "35+ Years of Experience",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Since 1991 we've protected homes, restaurants, and landmark properties across the UAE from pests and termites.",
   },
 ];
 
@@ -39,47 +41,48 @@ export const BenefitsSection = () => {
   return (
     <section id="benefits" className="container py-24 sm:py-32">
       <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
-        <div>
-          <h2 className="text-lg text-primary mb-2 tracking-wider">Benefits</h2>
+        <Reveal>
+          <div>
+            <h2 className="text-lg text-primary mb-2 tracking-wider">
+              Why Choose Us
+            </h2>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Your Shortcut to Success
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non
-            ducimus reprehenderit architecto rerum similique facere odit
-            deleniti necessitatibus quo quae.
-          </p>
-        </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              We Treat Your Home Like It&apos;s Our Own
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Every job follows the same disciplined process, whether
+              it&apos;s a studio apartment or a Burj Khalifa-scale tower:
+              inspect first, treat with the right method, then monitor until
+              the problem is actually gone — not just masked for a few weeks.
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-4 w-full">
-          {benefitList.map(({ icon, title, description }, index) => (
-            <Card
-              key={title}
-              className="bg-muted/50 dark:bg-card hover:bg-background transition-all delay-75 group/number"
-            >
-              <CardHeader>
-                <div className="flex justify-between">
-                  <Icon
-                    name={icon as keyof typeof icons}
-                    size={32}
-                    color="hsl(var(--primary))"
-                    className="mb-6 text-primary"
-                  />
-                  <span className="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-muted-foreground/30">
-                    0{index + 1}
-                  </span>
-                </div>
+        <RevealGroup className="grid lg:grid-cols-2 gap-4 w-full">
+          {benefitList.map(({ icon: Icon, title, description }, index) => (
+            <RevealItem key={title}>
+              <Card className="bg-muted/50 dark:bg-card hover:bg-background transition-all delay-75 group/number h-full">
+                <CardHeader>
+                  <div className="flex justify-between">
+                    <div className="bg-primary/15 p-2 rounded-full mb-6">
+                      <Icon className="size-6 text-primary" />
+                    </div>
+                    <span className="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-muted-foreground/30">
+                      0{index + 1}
+                    </span>
+                  </div>
 
-                <CardTitle>{title}</CardTitle>
-              </CardHeader>
+                  <CardTitle>{title}</CardTitle>
+                </CardHeader>
 
-              <CardContent className="text-muted-foreground">
-                {description}
-              </CardContent>
-            </Card>
+                <CardContent className="text-muted-foreground">
+                  {description}
+                </CardContent>
+              </Card>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

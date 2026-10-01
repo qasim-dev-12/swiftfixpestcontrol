@@ -1,5 +1,19 @@
 "use client";
-import { ChevronsDown, Github, Menu } from "lucide-react";
+import {
+  BedDouble,
+  Building2,
+  BugOff,
+  ChevronDown,
+  Flame,
+  Menu,
+  MessageCircle,
+  Phone,
+  Rat,
+  ShieldCheck,
+  TreeDeciduous,
+  Webhook,
+  Wind,
+} from "lucide-react";
 import React from "react";
 import {
   Sheet,
@@ -11,6 +25,11 @@ import {
 } from "../ui/sheet";
 import { Separator } from "../ui/separator";
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -20,7 +39,6 @@ import {
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
 
 interface RouteProps {
@@ -28,10 +46,22 @@ interface RouteProps {
   label: string;
 }
 
-interface FeatureProps {
-  title: string;
-  description: string;
+interface ServiceLinkProps {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
+
+const serviceLinks: ServiceLinkProps[] = [
+  { href: "/services#cockroaches", label: "Cockroaches", icon: BugOff },
+  { href: "/services#spiders", label: "Spiders", icon: Webhook },
+  { href: "/services#termites", label: "Termites", icon: TreeDeciduous },
+  { href: "/services#rodents", label: "Rodents", icon: Rat },
+  { href: "/services#bed-bugs", label: "Bed Bugs", icon: BedDouble },
+  { href: "/services#mosquitoes-flies", label: "Mosquitoes & Flies", icon: Wind },
+  { href: "/services#commercial", label: "Commercial", icon: Building2 },
+  { href: "/services#fumigation", label: "Fumigation", icon: Flame },
+];
 
 const routeList: RouteProps[] = [
   {
@@ -40,7 +70,7 @@ const routeList: RouteProps[] = [
   },
   {
     href: "#team",
-    label: "Team",
+    label: "Technicians",
   },
   {
     href: "#contact",
@@ -52,30 +82,15 @@ const routeList: RouteProps[] = [
   },
 ];
 
-const featureList: FeatureProps[] = [
-  {
-    title: "Showcase Your Value ",
-    description: "Highlight how your product solves user problems.",
-  },
-  {
-    title: "Build Trust",
-    description:
-      "Leverages social proof elements to establish trust and credibility.",
-  },
-  {
-    title: "Capture Leads",
-    description:
-      "Make your lead capture form visually appealing and strategically.",
-  },
-];
-
 export const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isServicesOpen, setIsServicesOpen] = React.useState(false);
+
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
-        <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
-        Shadcn
+        <ShieldCheck className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white p-1.5" />
+        SwiftFix
       </Link>
       {/* <!-- Mobile --> */}
       <div className="flex items-center lg:hidden">
@@ -89,19 +104,62 @@ export const Navbar = () => {
 
           <SheetContent
             side="left"
-            className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
+            className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary overflow-y-auto"
           >
             <div>
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
                   <Link href="/" className="flex items-center">
-                    <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
-                    Shadcn
+                    <ShieldCheck className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white p-1.5" />
+                    SwiftFix
                   </Link>
                 </SheetTitle>
               </SheetHeader>
 
               <div className="flex flex-col gap-2">
+                <Collapsible
+                  open={isServicesOpen}
+                  onOpenChange={setIsServicesOpen}
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="justify-between w-full text-base"
+                    >
+                      Services
+                      <ChevronDown
+                        className={`size-4 transition-transform ${
+                          isServicesOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="flex flex-col gap-1 pl-4">
+                    {serviceLinks.map(({ href, label, icon: Icon }) => (
+                      <Button
+                        key={href}
+                        onClick={() => setIsOpen(false)}
+                        asChild
+                        variant="ghost"
+                        className="justify-start text-sm font-normal"
+                      >
+                        <Link href={href}>
+                          <Icon className="size-4 mr-2 text-primary" />
+                          {label}
+                        </Link>
+                      </Button>
+                    ))}
+                    <Button
+                      onClick={() => setIsOpen(false)}
+                      asChild
+                      variant="ghost"
+                      className="justify-start text-sm font-semibold text-primary"
+                    >
+                      <Link href="/services">View All Services</Link>
+                    </Button>
+                  </CollapsibleContent>
+                </Collapsible>
+
                 {routeList.map(({ href, label }) => (
                   <Button
                     key={href}
@@ -113,6 +171,31 @@ export const Navbar = () => {
                     <Link href={href}>{label}</Link>
                   </Button>
                 ))}
+                <Button
+                  onClick={() => setIsOpen(false)}
+                  asChild
+                  className="justify-start text-base mt-2"
+                >
+                  <Link
+                    href="https://wa.me/971569835921"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="size-4 mr-2" />
+                    WhatsApp
+                  </Link>
+                </Button>
+                <Button
+                  onClick={() => setIsOpen(false)}
+                  asChild
+                  variant="secondary"
+                  className="justify-start text-base"
+                >
+                  <Link href="tel:+971569835921">
+                    <Phone className="size-4 mr-2" />
+                    Call
+                  </Link>
+                </Button>
               </div>
             </div>
 
@@ -129,59 +212,67 @@ export const Navbar = () => {
       <NavigationMenu className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-card text-base">
-              Features
+            <NavigationMenuTrigger className="text-base bg-transparent">
+              Services
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
-                <Image
-                  src="https://avatars.githubusercontent.com/u/75042455?v=4"
-                  alt="RadixLogo"
-                  className="h-full w-full rounded-md object-cover"
-                  width={600}
-                  height={600}
-                />
-                <ul className="flex flex-col gap-2">
-                  {featureList.map(({ title, description }) => (
-                    <li
-                      key={title}
-                      className="rounded-md p-3 text-sm hover:bg-muted"
+              <div className="grid grid-cols-2 gap-1 p-4 w-[420px]">
+                {serviceLinks.map(({ href, label, icon: Icon }) => (
+                  <NavigationMenuLink asChild key={href}>
+                    <Link
+                      href={href}
+                      className="flex items-center gap-2 rounded-md p-2 text-sm hover:bg-accent hover:text-accent-foreground"
                     >
-                      <p className="mb-1 font-semibold leading-none text-foreground">
-                        {title}
-                      </p>
-                      <p className="line-clamp-2 text-muted-foreground">
-                        {description}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                      <Icon className="size-4 text-primary shrink-0" />
+                      {label}
+                    </Link>
+                  </NavigationMenuLink>
+                ))}
+              </div>
+              <div className="border-t px-4 py-3">
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/services"
+                    className="text-sm font-semibold text-primary hover:underline"
+                  >
+                    View All Services
+                  </Link>
+                </NavigationMenuLink>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            {routeList.map(({ href, label }) => (
-              <NavigationMenuLink key={href} asChild>
+          {routeList.map(({ href, label }) => (
+            <NavigationMenuItem key={href}>
+              <NavigationMenuLink asChild>
                 <Link href={href} className="text-base px-2">
                   {label}
                 </Link>
               </NavigationMenuLink>
-            ))}
-          </NavigationMenuItem>
+            </NavigationMenuItem>
+          ))}
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex items-center gap-2">
         <ToggleTheme />
 
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
+        <Button asChild size="sm" variant="ghost" aria-label="Call SwiftFix">
+          <Link aria-label="Call SwiftFix" href="tel:+971569835921">
+            <Phone className="size-4 mr-2" />
+            +971 56 983 5921
+          </Link>
+        </Button>
+
+        <Button asChild size="sm" className="font-bold">
           <Link
-            aria-label="View on GitHub"
-            href="https://github.com/nobruf/shadcn-landing-page.git"
+            href="https://wa.me/971569835921"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp SwiftFix"
           >
-            <Github className="size-5" />
+            <MessageCircle className="size-4 mr-2" />
+            WhatsApp
           </Link>
         </Button>
       </div>

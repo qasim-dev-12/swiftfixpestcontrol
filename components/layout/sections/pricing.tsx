@@ -1,3 +1,6 @@
+"use client";
+
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 enum PopularPlan {
   NO = 0,
@@ -25,116 +29,119 @@ interface PlanProps {
 
 const plans: PlanProps[] = [
   {
-    title: "Free",
+    title: "Basic Pest Control",
     popular: 0,
-    price: 0,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Start Free Trial",
+    price: 199,
+    description: "One-time treatment for a single, specific pest problem.",
+    buttonText: "Get Started",
     benefitList: [
-      "1 team member",
-      "1 GB storage",
-      "Upto 2 pages",
-      "Community support",
-      "AI assistance",
+      "1 treatment visit",
+      "General pest inspection",
+      "Ants, spiders & silverfish",
+      "30-day service guarantee",
+      "Email support",
     ],
   },
   {
-    title: "Premium",
+    title: "Complete Protection Plan",
     popular: 1,
-    price: 45,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Get starterd",
+    price: 499,
+    description: "Our most popular plan for year-round protection.",
+    buttonText: "Get Started",
     benefitList: [
-      "4 team member",
-      "8 GB storage",
-      "Upto 6 pages",
-      "Priority support",
-      "AI assistance",
+      "Quarterly scheduled visits",
+      "Termite inspection & warranty",
+      "Free re-treatment between visits",
+      "Priority scheduling",
+      "Phone & WhatsApp support",
     ],
   },
   {
-    title: "Enterprise",
+    title: "Commercial Plan",
     popular: 0,
-    price: 120,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Contact US",
+    price: 1299,
+    description: "Ongoing pest management for restaurants & businesses.",
+    buttonText: "Contact Us",
     benefitList: [
-      "10 team member",
-      "20 GB storage",
-      "Upto 10 pages",
-      "Phone & email support",
-      "AI assistance",
+      "Monthly scheduled visits",
+      "Full compliance documentation",
+      "Dedicated account manager",
+      "24/7 emergency call-outs",
+      "Multi-site discounts available",
     ],
   },
 ];
 
 export const PricingSection = () => {
   return (
-    <section className="container py-24 sm:py-32">
-      <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-        Pricing
-      </h2>
+    <section id="pricing" className="container py-24 sm:py-32">
+      <Reveal>
+        <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
+          Pricing
+        </h2>
 
-      <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        Get unlimitted access
-      </h2>
+        <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
+          Service Plans for Every Property
+        </h2>
 
-      <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
-        Lorem ipsum dolor sit amet consectetur adipisicing reiciendis.
-      </h3>
+        <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
+          Simple, transparent pricing with no hidden fees. All plans include
+          licensed technicians and a satisfaction guarantee.
+        </h3>
+      </Reveal>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4">
+      <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4">
         {plans.map(
           ({ title, popular, price, description, buttonText, benefitList }) => (
-            <Card
-              key={title}
-              className={
-                popular === PopularPlan?.YES
-                  ? "drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-[1.5px] border-primary lg:scale-[1.1]"
-                  : ""
-              }
-            >
-              <CardHeader>
-                <CardTitle className="pb-2">{title}</CardTitle>
+            <RevealItem key={title} className="h-full">
+              <Card
+                className={
+                  "h-full " +
+                  (popular === PopularPlan?.YES
+                    ? "drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-[1.5px] border-primary lg:scale-[1.1]"
+                    : "")
+                }
+              >
+                <CardHeader>
+                  <CardTitle className="pb-2">{title}</CardTitle>
 
-                <CardDescription className="pb-4">
-                  {description}
-                </CardDescription>
+                  <CardDescription className="pb-4">
+                    {description}
+                  </CardDescription>
 
-                <div>
-                  <span className="text-3xl font-bold">${price}</span>
-                  <span className="text-muted-foreground"> /month</span>
-                </div>
-              </CardHeader>
+                  <div>
+                    <span className="text-3xl font-bold">AED {price}</span>
+                    <span className="text-muted-foreground"> /visit</span>
+                  </div>
+                </CardHeader>
 
-              <CardContent className="flex">
-                <div className="space-y-4">
-                  {benefitList.map((benefit) => (
-                    <span key={benefit} className="flex">
-                      <Check className="text-primary mr-2" />
-                      <h3>{benefit}</h3>
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
+                <CardContent className="flex">
+                  <div className="space-y-4">
+                    {benefitList.map((benefit) => (
+                      <span key={benefit} className="flex">
+                        <Check className="text-primary mr-2" />
+                        <h3>{benefit}</h3>
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
 
-              <CardFooter>
-                <Button
-                  variant={
-                    popular === PopularPlan?.YES ? "default" : "secondary"
-                  }
-                  className="w-full"
-                >
-                  {buttonText}
-                </Button>
-              </CardFooter>
-            </Card>
+                <CardFooter>
+                  <Button
+                    asChild
+                    variant={
+                      popular === PopularPlan?.YES ? "default" : "secondary"
+                    }
+                    className="w-full"
+                  >
+                    <Link href="#contact">{buttonText}</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </RevealItem>
           )
         )}
-      </div>
+      </RevealGroup>
     </section>
   );
 };
