@@ -1,6 +1,6 @@
 "use client";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -18,7 +18,6 @@ import {
 import { Award, Building2, MapPin, Star } from "lucide-react";
 
 interface ReviewProps {
-  image: string;
   name: string;
   userName: string;
   comment: string;
@@ -34,7 +33,6 @@ const stats = [
 
 const reviewList: ReviewProps[] = [
   {
-    image: "https://i.pravatar.cc/150?img=11",
     name: "Rachelle Hage",
     userName: "Verified Customer",
     comment:
@@ -42,7 +40,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=32",
     name: "Zunair Akram",
     userName: "Verified Customer",
     comment:
@@ -50,21 +47,18 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=45",
     name: "Aisha Al Bahri",
     userName: "Verified Customer",
     comment: "Great service, it was so quick and convenient, very professional staff.",
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=22",
     name: "Goli Prashanth",
     userName: "Verified Customer",
     comment: "Highly professional services.",
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=48",
     name: "Tara Baban",
     userName: "Verified Customer",
     comment:
@@ -72,7 +66,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=15",
     name: "Mira Almazrooei",
     userName: "Verified Customer",
     comment:
@@ -80,7 +73,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=12",
     name: "Sudip Sarkar",
     userName: "Verified Customer",
     comment:
@@ -88,7 +80,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=25",
     name: "Reem Noori",
     userName: "Verified Customer",
     comment:
@@ -96,7 +87,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=52",
     name: "Rakesh Parappalliyalil",
     userName: "Verified Customer",
     comment:
@@ -104,7 +94,6 @@ const reviewList: ReviewProps[] = [
     rating: 5.0,
   },
   {
-    image: "https://i.pravatar.cc/150?img=60",
     name: "Edric Nelson Cate",
     userName: "Verified Customer",
     comment:
@@ -184,7 +173,6 @@ export const TestimonialSection = () => {
                 <CardHeader>
                   <div className="flex flex-row items-center gap-4">
                     <Avatar>
-                      <AvatarImage src={review.image} alt={review.name} />
                       <AvatarFallback>
                         {review.name
                           .split(" ")

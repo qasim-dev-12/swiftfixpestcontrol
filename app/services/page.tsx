@@ -3,15 +3,20 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import {
+  AirVent,
   ArrowLeft,
   BedDouble,
   Building2,
   BugOff,
   Check,
+  Container,
   Flame,
   MessageCircle,
+  PaintRoller,
   Phone,
   Rat,
+  ShieldCheck,
+  SprayCan,
   TreeDeciduous,
   Webhook,
   Wind,
@@ -19,9 +24,9 @@ import {
 import Link from "next/link";
 
 export const metadata = {
-  title: "Pest Control Services | SwiftFix Pest Control",
+  title: "Pest Control & Facilities Services | SwiftFix Pest Control",
   description:
-    "Eight licensed pest control services for homes and businesses across the UAE — cockroaches, spiders, termites, rodents, bed bugs, mosquitoes, commercial contracts and fumigation.",
+    "Licensed pest control and facilities services for homes and businesses across the UAE — cockroaches, spiders, termites, rodents, bed bugs, mosquitoes, commercial contracts, fumigation, building cleaning, AC maintenance, tank cleaning and painting contracting.",
 };
 
 interface ServiceDetail {
@@ -170,6 +175,91 @@ const services: ServiceDetail[] = [
       "Clearance testing before the space is handed back",
     ],
   },
+  {
+    id: "building-cleaning",
+    icon: SprayCan,
+    title: "Building Cleaning Services",
+    summary:
+      "From handover cleans to scheduled janitorial contracts, we keep residential towers, offices and retail units looking their best inside and out.",
+    signs: [
+      "Move-in or handover clean required before occupancy",
+      "Common areas, facades or windows due for a deep clean",
+      "A recurring janitorial contract with no reliable provider",
+    ],
+    approach: [
+      "Deep cleaning for handovers, move-ins and post-construction",
+      "Scheduled janitorial and housekeeping contracts",
+      "Facade, window and common-area cleaning by trained crews",
+    ],
+  },
+  {
+    id: "ac-ventilation",
+    icon: AirVent,
+    title: "Air Conditioning, Ventilation & Air Filtration Systems",
+    summary:
+      "Poorly maintained AC and ventilation systems circulate dust, odours and allergens — we install and service the systems that keep indoor air clean.",
+    signs: [
+      "Weak airflow, odours or dust coming from vents",
+      "Rising energy bills from an overworked system",
+      "No record of recent filter or duct servicing",
+    ],
+    approach: [
+      "Installation of AC, ventilation and air filtration systems",
+      "Duct cleaning and filter replacement",
+      "Scheduled preventive maintenance contracts",
+    ],
+  },
+  {
+    id: "tanks-containers",
+    icon: Container,
+    title: "Tanks & Containers Cleaning Services",
+    summary:
+      "Water tanks and storage containers need regular disinfection to stay compliant and safe — we clean, disinfect and certify to municipality standards.",
+    signs: [
+      "No cleaning record for the last 6 months",
+      "Discoloured, cloudy or odd-smelling water",
+      "An upcoming municipality inspection or audit",
+    ],
+    approach: [
+      "Full drain-down, scrub and disinfection of tanks and containers",
+      "Water quality checks before refill",
+      "Municipality-compliant cleaning certificate on completion",
+    ],
+  },
+  {
+    id: "painting-contracting",
+    icon: PaintRoller,
+    title: "Painting Contracting",
+    summary:
+      "Interior and exterior painting for homes and businesses, from a single room touch-up to a full building repaint, finished by licensed contractors.",
+    signs: [
+      "Peeling, cracked or faded paintwork",
+      "A unit due for repainting before handover or re-letting",
+      "A full building or facility repaint on the schedule",
+    ],
+    approach: [
+      "Surface preparation, filling and priming",
+      "Interior and exterior painting with quality-checked finishes",
+      "Project management for multi-unit and whole-building jobs",
+    ],
+  },
+  {
+    id: "public-health-pest-control",
+    icon: ShieldCheck,
+    title: "Public Health Pests Control Services",
+    summary:
+      "Licensed public health pest control for the premises that answer to municipality and food-safety inspectors, run on a documented schedule.",
+    signs: [
+      "An upcoming public health or municipality inspection",
+      "A facility that needs documented, auditable pest control",
+      "Shared premises requiring a licensed service provider",
+    ],
+    approach: [
+      "Licensed public health pest control under UAE municipality regulations",
+      "Scheduled visits with full documentation for audits",
+      "Treatment plans aligned to food-safety and public health standards",
+    ],
+  },
 ];
 
 export default function ServicesPage() {
@@ -188,13 +278,13 @@ export default function ServicesPage() {
             Services
           </h1>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            All Our Pest Control Services
+            All Our Pest Control &amp; Facilities Services
           </h2>
           <p className="md:w-2/3 text-xl text-muted-foreground mb-8">
-            Six specialist services, one licensed team. Whatever is crossing
-            the line in your home or business, our technicians inspect first,
-            treat with the right method, then monitor until the problem is
-            actually gone.
+            One licensed team for pest control, building cleaning, AC
+            maintenance, tank cleaning and painting contracting. Whatever
+            your property needs, our technicians inspect first, treat with
+            the right method, then monitor until the job is actually done.
           </p>
         </Reveal>
 

@@ -1,16 +1,24 @@
 "use client";
 
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { useState } from "react";
+import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ArrowRight, BugOff, Rat, TreeDeciduous, Webhook } from "lucide-react";
+  AirVent,
+  ArrowRight,
+  BugOff,
+  ChevronDown,
+  ChevronUp,
+  Container,
+  PaintRoller,
+  Rat,
+  ShieldCheck,
+  SprayCan,
+  TreeDeciduous,
+  Webhook,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,7 +29,9 @@ interface ServiceProps {
   href: string;
 }
 
-const serviceList: ServiceProps[] = [
+const visibleCount = 4;
+
+const allServices: ServiceProps[] = [
   {
     icon: BugOff,
     title: "Cockroaches",
@@ -50,9 +60,49 @@ const serviceList: ServiceProps[] = [
       "Rats and mice contaminate food, gnaw through wiring and insulation, and multiply quickly once they find shelter and a food source indoors. We combine safe trapping and baiting with exclusion work — sealing the gaps they're getting in through — so the problem doesn't come back.",
     href: "/services#rodents",
   },
+  {
+    icon: SprayCan,
+    title: "Building Cleaning Services",
+    description:
+      "From handover cleans to scheduled janitorial contracts, we keep residential towers, offices and retail units looking their best inside and out.",
+    href: "/services#building-cleaning",
+  },
+  {
+    icon: AirVent,
+    title: "AC, Ventilation & Air Filtration",
+    description:
+      "Installation and maintenance of air conditioning, ventilation and air filtration systems, so indoor air stays clean and systems run efficiently.",
+    href: "/services#ac-ventilation",
+  },
+  {
+    icon: Container,
+    title: "Tanks & Containers Cleaning",
+    description:
+      "Water tanks and storage containers cleaned and disinfected to municipality standards, with a compliance certificate on completion.",
+    href: "/services#tanks-containers",
+  },
+  {
+    icon: PaintRoller,
+    title: "Painting Contracting",
+    description:
+      "Interior and exterior painting for homes and businesses, from a single room touch-up to a full building repaint by licensed contractors.",
+    href: "/services#painting-contracting",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Public Health Pests Control",
+    description:
+      "Licensed public health pest control for premises that answer to municipality and food-safety inspectors, run on a documented schedule.",
+    href: "/services#public-health-pest-control",
+  },
 ];
 
 export const ServicesSection = () => {
+  const [showAll, setShowAll] = useState(false);
+  const visibleServices = showAll
+    ? allServices
+    : allServices.slice(0, visibleCount);
+
   return (
     <section id="services" className="container py-24 sm:py-32">
       <div className="grid lg:grid-cols-2 place-items-center lg:gap-24 mb-12">
@@ -63,11 +113,11 @@ export const ServicesSection = () => {
             </h2>
 
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Common Pest Control
+              All Our Services
             </h2>
             <h3 className="text-xl text-muted-foreground">
-              Six specialist services, one licensed team — here are four of
-              the problems we&apos;re called out for most often across the
+              One licensed team for pest control, building cleaning, AC
+              maintenance, tank cleaning and painting contracting across the
               UAE.
             </h3>
           </div>
@@ -86,38 +136,56 @@ export const ServicesSection = () => {
         </Reveal>
       </div>
 
-      <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {serviceList.map(({ icon: Icon, title, description, href }) => (
-          <RevealItem key={title}>
-            <Card className="bg-muted/60 dark:bg-card h-full flex flex-col">
-              <CardHeader>
-                <div className="bg-primary/15 p-2 rounded-full w-fit mb-4">
+      <div className="grid sm:grid-cols-2 gap-6">
+        {visibleServices.map(({ icon: Icon, title, description, href }) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            whileHover={{ y: -6 }}
+          >
+            <Link href={href} className="block h-full">
+              <Card className="bg-muted/60 dark:bg-card h-full flex flex-col sm:flex-row gap-4 p-6 transition-colors hover:border-primary/50">
+                <div className="bg-primary/15 p-2 rounded-full size-fit shrink-0">
                   <Icon className="size-6 text-primary" />
                 </div>
-                <CardTitle className="text-lg">{title}</CardTitle>
-                <CardDescription>{description}</CardDescription>
-              </CardHeader>
-              <CardFooter className="mt-auto">
-                <Button
-                  asChild
-                  variant="link"
-                  className="px-0 font-semibold group/arrow"
-                >
-                  <Link href={href}>
-                    Learn More
-                    <ArrowRight className="size-4 ml-1 group-hover/arrow:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </RevealItem>
+                <div className="flex flex-col">
+                  <CardTitle className="text-lg mb-2">{title}</CardTitle>
+                  <CardDescription>{description}</CardDescription>
+                  <div className="mt-auto pt-4">
+                    <span className="flex items-center px-0 font-semibold text-primary group/arrow">
+                      Learn More
+                      <ArrowRight className="size-4 ml-1 group-hover/arrow:translate-x-1 transition-transform" />
+                    </span>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </motion.div>
         ))}
-      </RevealGroup>
+      </div>
 
       <Reveal>
         <div className="flex justify-center mt-10">
-          <Button asChild size="lg" variant="secondary" className="font-bold">
-            <Link href="/services">More Services</Link>
+          <Button
+            size="lg"
+            variant="secondary"
+            className="font-bold"
+            onClick={() => setShowAll((prev) => !prev)}
+          >
+            {showAll ? (
+              <>
+                View Less
+                <ChevronUp className="size-4 ml-2" />
+              </>
+            ) : (
+              <>
+                View More Services
+                <ChevronDown className="size-4 ml-2" />
+              </>
+            )}
           </Button>
         </div>
       </Reveal>
