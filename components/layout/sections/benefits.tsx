@@ -32,9 +32,9 @@ const benefitList: BenefitsProps[] = [
   },
   {
     icon: Award,
-    title: "35+ Years of Experience",
+    title: "7+ Years of Experience",
     description:
-      "Since 1991 we've protected homes, restaurants, and landmark properties across the UAE from pests and termites.",
+      "Since 2019 we've protected homes, restaurants, and landmark properties across the UAE from pests and termites.",
   },
 ];
 

@@ -15,7 +15,7 @@ export const FooterSection = () => {
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Licensed pest control and termite protection for homes and
-              businesses across the UAE since 1991.
+              businesses across the UAE since 2019.
             </p>
           </div>
 

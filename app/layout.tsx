@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "SwiftFix Pest Control | Licensed Pest & Termite Control in the UAE",
   description:
-    "Licensed pest control and termite protection for homes and businesses across the UAE since 1991.",
+    "Licensed pest control and termite protection for homes and businesses across the UAE since 2019.",
 };
 
 export default function RootLayout({

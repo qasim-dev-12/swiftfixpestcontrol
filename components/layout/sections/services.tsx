@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
-import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import {
   AirVent,
@@ -19,7 +18,6 @@ import {
   Webhook,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 interface ServiceProps {
@@ -29,9 +27,7 @@ interface ServiceProps {
   href: string;
 }
 
-const visibleCount = 4;
-
-const allServices: ServiceProps[] = [
+const pestServices: ServiceProps[] = [
   {
     icon: BugOff,
     title: "Cockroaches",
@@ -60,6 +56,9 @@ const allServices: ServiceProps[] = [
       "Rats and mice contaminate food, gnaw through wiring and insulation, and multiply quickly once they find shelter and a food source indoors. We combine safe trapping and baiting with exclusion work — sealing the gaps they're getting in through — so the problem doesn't come back.",
     href: "/services#rodents",
   },
+];
+
+const otherServices: ServiceProps[] = [
   {
     icon: SprayCan,
     title: "Building Cleaning Services",
@@ -97,15 +96,45 @@ const allServices: ServiceProps[] = [
   },
 ];
 
+const ServiceGrid = ({ services }: { services: ServiceProps[] }) => (
+  <div className="grid sm:grid-cols-2 gap-6">
+    {services.map(({ icon: Icon, title, description, href }) => (
+      <motion.div
+        key={title}
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        whileHover={{ y: -6 }}
+      >
+        <Link href={href} className="block h-full">
+          <Card className="bg-muted/60 dark:bg-card h-full flex flex-col sm:flex-row gap-4 p-6 transition-colors hover:border-primary/50">
+            <div className="bg-primary/15 p-2 rounded-full size-fit shrink-0">
+              <Icon className="size-6 text-primary" />
+            </div>
+            <div className="flex flex-col">
+              <CardTitle className="text-lg mb-2">{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
+              <div className="mt-auto pt-4">
+                <span className="flex items-center px-0 font-semibold text-primary group/arrow">
+                  Learn More
+                  <ArrowRight className="size-4 ml-1 group-hover/arrow:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </div>
+          </Card>
+        </Link>
+      </motion.div>
+    ))}
+  </div>
+);
+
 export const ServicesSection = () => {
-  const [showAll, setShowAll] = useState(false);
-  const visibleServices = showAll
-    ? allServices
-    : allServices.slice(0, visibleCount);
+  const [showPestServices, setShowPestServices] = useState(false);
 
   return (
     <section id="services" className="container py-24 sm:py-32">
-      <div className="grid lg:grid-cols-2 place-items-center lg:gap-24 mb-12">
+      <div className="text-center mb-12">
         <Reveal>
           <div>
             <h2 className="text-lg text-primary mb-2 tracking-wider">
@@ -122,73 +151,41 @@ export const ServicesSection = () => {
             </h3>
           </div>
         </Reveal>
-
-        <Reveal className="w-full justify-self-stretch">
-          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-secondary">
-            <Image
-              src="/images/pest-control-treatment.jpg"
-              alt="SwiftFix technician applying a targeted pest control treatment"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-6">
-        {visibleServices.map(({ icon: Icon, title, description, href }) => (
-          <motion.div
-            key={title}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            whileHover={{ y: -6 }}
-          >
-            <Link href={href} className="block h-full">
-              <Card className="bg-muted/60 dark:bg-card h-full flex flex-col sm:flex-row gap-4 p-6 transition-colors hover:border-primary/50">
-                <div className="bg-primary/15 p-2 rounded-full size-fit shrink-0">
-                  <Icon className="size-6 text-primary" />
-                </div>
-                <div className="flex flex-col">
-                  <CardTitle className="text-lg mb-2">{title}</CardTitle>
-                  <CardDescription>{description}</CardDescription>
-                  <div className="mt-auto pt-4">
-                    <span className="flex items-center px-0 font-semibold text-primary group/arrow">
-                      Learn More
-                      <ArrowRight className="size-4 ml-1 group-hover/arrow:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          </motion.div>
-        ))}
       </div>
 
       <Reveal>
-        <div className="flex justify-center mt-10">
-          <Button
-            size="lg"
-            variant="secondary"
-            className="font-bold"
-            onClick={() => setShowAll((prev) => !prev)}
-          >
-            {showAll ? (
-              <>
-                View Less
-                <ChevronUp className="size-4 ml-2" />
-              </>
-            ) : (
-              <>
-                View More Services
-                <ChevronDown className="size-4 ml-2" />
-              </>
-            )}
-          </Button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setShowPestServices((prev) => !prev)}
+          className="w-full mb-12 rounded-2xl p-8 sm:p-10 bg-gradient-to-br from-primary to-primary/70 text-primary-foreground flex flex-col sm:flex-row items-center gap-6 text-left shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div className="bg-primary-foreground/15 p-4 rounded-full size-fit shrink-0">
+            <BugOff className="size-10" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-1">
+              Pest Control Services
+            </h3>
+            <p className="text-primary-foreground/80 text-base sm:text-lg">
+              Cockroaches, Spiders, Termites &amp; Rodents — tap to{" "}
+              {showPestServices ? "hide" : "view"} the full breakdown.
+            </p>
+          </div>
+          {showPestServices ? (
+            <ChevronUp className="size-8 shrink-0" />
+          ) : (
+            <ChevronDown className="size-8 shrink-0" />
+          )}
+        </button>
       </Reveal>
+
+      {showPestServices && (
+        <div className="mb-12">
+          <ServiceGrid services={pestServices} />
+        </div>
+      )}
+
+      <ServiceGrid services={otherServices} />
     </section>
   );
 };

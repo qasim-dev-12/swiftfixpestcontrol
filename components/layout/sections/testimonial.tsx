@@ -25,7 +25,7 @@ interface ReviewProps {
 }
 
 const stats = [
-  { icon: Award, value: "35+", label: "Years Experience" },
+  { icon: Award, value: "7+", label: "Years Experience" },
   { icon: MapPin, value: "7", label: "Emirates Covered" },
   { icon: Building2, value: "52+", label: "Trusted Businesses" },
   { icon: Star, value: "5", label: "Certifications & Approvals" },
